@@ -1,23 +1,17 @@
-#!/bin/bash
+#!/bin/csh
 #
-# Setup HADDOCK environment
-source /trinity/login/abonvin/haddock_git/haddock2.4-node/haddock_configure.sh
+source /trinity/login/abonvin/haddock_git/haddock2.4-node/haddock_configure.csh
 
-# Location of data directory - change if needed
-export datadir=$PWD
-
-# Start pilot, and wait a short random time
+set datadir=/trinity/login/abonvin/haddock_git/haddock-pilot
 echo "Starting HADDOCK pilot at "`date`" on "`hostname`
-export waittime=`echo ${RANDOM} | awk '{printf "%d\n",$1/2000}'`
+set waittime=`awk -v min=0 -v max=20 'BEGIN{srand(); print int(min+rand()*(max-min+1))}'`
 sleep $waittime
-
-# Loop over workloads
-while [ `ls $datadir/01-TODO/*.tgz | wc -l | awk '{print $1}'` > 0 ]; do 
-    export todo=`ls $datadir/01-TODO/*.tgz |head -1`
-    export runname=`basename $todo:r`
-    export running=`echo $todo | sed -e 's/01-TODO/02-RUNNING/g'`
-    if [ -e $todo ]; then
-        if [! -e $running.process ]; then
+while ( `ls $datadir/01-TODO/*.tgz | wc -l | awk '{print $1}'` > 0 ) 
+    set todo=`ls $datadir/01-TODO/*.tgz |head -1`
+    set runname=`basename $todo:r`
+    set running=`echo $todo | sed -e 's/01-TODO/02-RUNNING/g'`
+    if ( -e $todo) then
+        if (! -e $running.process ) then
             touch $running.process
             \mv $todo $datadir/02-RUNNING
             cd /tmp
@@ -32,7 +26,7 @@ while [ `ls $datadir/01-TODO/*.tgz | wc -l | awk '{print $1}'` > 0 ]; do
             \rm $running.process
             echo "Finishing HADDOCK for "$runname " at "`date`" on "`hostname`
             cd $datadir
-        fi
-    fi
-done
+        endif
+    endif
+end
 echo "Ending HADDOCK pilot at "`date`" on "`hostname`

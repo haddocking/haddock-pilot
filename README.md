@@ -22,9 +22,9 @@ When no workloads are present anymore the pilot will stop.
 
 * `setup-run-node.csh`: An example script to prepare a docking run and modify parameters in `run.cns`. Edit it an adapt it to your needs. The script is currently configured to run the BM5 examples provided in the `DATA` directory, using true interface restraints defined at 5A. Call this script with as argument a list of complexes to pre-process (the structure of the complex directory should follow that of the HADDOCK-ready BM5 repository). E.g.: `./setup-run-node.csh DATA/1AY7`
 
-* `haddock-pilot.sh`: The simple pilot script that will process the workload in alphabetical order as present in the `01-TODO` directory
+* `haddock-pilot.csh`: The simple pilot script that will process the workload in alphabetical order as present in the `01-TODO` directory
 
-* `haddock-pilot-size.sh`: The simple pilot script that will process the workload starting with the largest archives present in the `01-TODO` directory
+* `haddock-pilot-size.csh`: The simple pilot script that will process the workload starting with the largest archives present in the `01-TODO` directory
 
 * `run-mpi-haddock.sh`: An example script to manually launch the pilots on a set of nodes using `mpirun`. It expects a `hostfile` containing the list of nodes. The number of nodes given as argument to `-np` should match the number of nodes in the `hostfile`
 

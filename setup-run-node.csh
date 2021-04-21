@@ -7,10 +7,9 @@ set wdir=`pwd`
 foreach i ($argv)
     set curdir=`pwd`
     set cplxname=`basename $i`
-    #set cplxbase=$cplxname
-    set cplxbase=1AY7
+    set cplxbase=$cplxname
     set runname=${cplxname}-${runext}
-    if (! -e 02-TODO/run1-$runname.tgz) then
+    if (! -e 01-TODO/run1-$runname.tgz) then
         echo "HADDOCK_DIR=/trinity/login/abonvin/haddock_git/haddock2.4-node" >${i}/run.param
         echo "AMBIG_TBL=./ambig5.tbl" >>${i}/run.param
         echo "N_COMP=2" >>${i}/run.param
@@ -38,12 +37,12 @@ foreach i ($argv)
 #            -e 's/anastruc_1=200/anastruc_1=400/g' \
 #            -e 's/waterrefine=200/waterrefine=400/g' \
 #            -e 's/cmrest=false/cmrest=true/g' \
-        sed -e 's/hbonds_on=false/hbonds_on=true/g' run.cns > run.cns.node
-            #-e 's/runana="cluster"/runana="none"/g' run.cns > run.cns.node
+        sed -e 's/hbonds_on=false/hbonds_on=true/g' \
+            -e 's/runana="cluster"/runana="none"/g' run.cns > run.cns.node
         \mv run.cns run.cns.store
         \mv run.cns.node run.cns
         cd ../
-        tar cfz $curdir/02-TODO/run1-$runname.tgz run1-$runname
+        tar cfz $curdir/01-TODO/run1-$runname.tgz run1-$runname
         rm -rf run1-$runname
         cd $curdir
     else 
