@@ -1,0 +1,10 @@
+HADDOCK_DIR=/trinity/login/abonvin/haddock_git/haddock2.4-node
+AMBIG_TBL=./ambig5.tbl
+N_COMP=2
+PDB_FILE1=./1SYX_r_u.pdb
+PDB_FILE2=./1SYX_l_u.pdb
+PROJECT_DIR=./
+PROT_SEGID_1=A
+PROT_SEGID_2=B
+RUN_NUMBER=1-1SYX-ti5
+HBOND_FILE=hbonds.tbl
