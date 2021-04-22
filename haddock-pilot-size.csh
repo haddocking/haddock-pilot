@@ -4,7 +4,8 @@ source /trinity/login/abonvin/haddock_git/haddock2.4-node/haddock_configure.csh
 
 set datadir=/trinity/login/abonvin/haddock_git/haddock-pilot
 echo "Starting HADDOCK pilot at "`date`" on "`hostname`
-set waittime=`awk -v min=0 -v max=20 'BEGIN{srand(); print int(min+rand()*(max-min+1))}'`
+set seed=`date +%N`
+set waittime=`awk -v min=0 -v max=20 -v seed=$seed 'BEGIN{srand(seed); print int(min+rand()*(max-min+1))}'`
 sleep $waittime
 while ( `ls $datadir/01-TODO/*.tgz | wc -l | awk '{print $1}'` > 0 ) 
     # Start with largest systems 
